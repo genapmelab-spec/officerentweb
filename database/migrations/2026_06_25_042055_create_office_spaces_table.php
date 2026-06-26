@@ -14,14 +14,14 @@ return new class extends Migration
         Schema::create('office_spaces', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('slug');
+            $table->string('slug')->unique();
             $table->string('thumbnail');
             $table->text('about');
             $table->foreignId('city_id')->constrained()->cascadeOnDelete();
             $table->boolean('is_open')->default(true);
             $table->boolean('is_full_booked')->default(false);
-            $table->integer('price');
-            $table->integer('duration');
+            $table->unsignedInteger('price');
+            $table->unsignedInteger('duration');
             $table->string('address');
             $table->softDeletes();
             $table->timestamps();
