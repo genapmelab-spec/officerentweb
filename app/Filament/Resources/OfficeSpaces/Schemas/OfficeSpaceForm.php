@@ -15,10 +15,16 @@ class OfficeSpaceForm
     public static function configure(Schema $schema): Schema
     {
         return $schema
+            ->columns(2)
             ->components([
                 TextInput::make('name')
                     ->required()
                     ->maxLength(255),
+
+                FileUpload::make('thumbnail')
+                    ->image()
+                    ->directory('office-spaces')
+                    ->required(),
 
                 Select::make('city_id')
                     ->label('City')
@@ -27,10 +33,14 @@ class OfficeSpaceForm
                     ->preload()
                     ->required(),
 
-                FileUpload::make('thumbnail')
-                    ->image()
-                    ->directory('office-spaces')
-                    ->required(),
+                Repeater::make('photos')
+                    ->relationship('photos')
+                    ->schema([
+                        FileUpload::make('photo')
+                            ->image()
+                            ->directory('office-space-photos')
+                            ->required(),
+                    ]),
 
                 TextInput::make('price')
                     ->label('Price')
@@ -45,25 +55,23 @@ class OfficeSpaceForm
                     ->required(),
 
                 TextInput::make('address')
-                    ->required()
-                    ->maxLength(255),
+                    ->columnSpanFull()
+                    ->required(),
 
                 Radio::make('is_open')
                     ->label('Office Status')
-                    ->boolean()
                     ->options([
-                        true => 'Open',
-                        false => 'Closed',
+                        1 => 'Open',
+                        0 => 'Closed',
                     ])
                     ->inline()
                     ->required(),
 
                 Radio::make('is_full_booked')
                     ->label('Availability')
-                    ->boolean()
                     ->options([
-                        true => 'Not Available',
-                        false => 'Available',
+                        0 => 'Available',
+                        1 => 'Not Available',
                     ])
                     ->inline()
                     ->required(),
@@ -72,16 +80,6 @@ class OfficeSpaceForm
                     ->rows(6)
                     ->columnSpanFull()
                     ->required(),
-
-                Repeater::make('photos')
-                    ->relationship('photos')
-                    ->columnSpanFull()
-                    ->schema([
-                        FileUpload::make('photo')
-                            ->image()
-                            ->directory('office-space-photos')
-                            ->required(),
-                    ]),
 
                 Repeater::make('benefits')
                     ->relationship('benefits')
