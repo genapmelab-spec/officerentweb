@@ -35,7 +35,7 @@ class OfficeSpacesTable
                     ->sortable(),
 
                 TextColumn::make('duration')
-                    ->suffix(' Month')
+                    ->suffix(' Day')
                     ->sortable(),
 
                 TextColumn::make('is_open')

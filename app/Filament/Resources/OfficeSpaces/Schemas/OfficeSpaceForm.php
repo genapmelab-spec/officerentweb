@@ -51,7 +51,7 @@ class OfficeSpaceForm
                 TextInput::make('duration')
                     ->label('Duration')
                     ->numeric()
-                    ->suffix('Month')
+                    ->suffix('Day')
                     ->required(),
 
                 TextInput::make('address')
