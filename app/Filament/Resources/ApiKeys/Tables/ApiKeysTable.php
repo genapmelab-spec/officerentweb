@@ -5,6 +5,7 @@ namespace App\Filament\Resources\ApiKeys\Tables;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
 class ApiKeysTable
@@ -13,7 +14,9 @@ class ApiKeysTable
     {
         return $table
             ->columns([
-                //
+                 TextColumn::make('name')
+                    ->searchable()
+                    ->sortable(),
             ])
             ->filters([
                 //

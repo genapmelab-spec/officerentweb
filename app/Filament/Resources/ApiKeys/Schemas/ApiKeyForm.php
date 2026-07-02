@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\ApiKeys\Schemas;
 
+use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
 
 class ApiKeyForm
@@ -10,7 +11,13 @@ class ApiKeyForm
     {
         return $schema
             ->components([
-                //
+                 TextInput::make('name')
+                    ->required()
+                    ->maxLength(255),
+
+                 TextInput::make('key')
+                    ->required()
+                    ->maxLength(255),
             ]);
     }
 }
